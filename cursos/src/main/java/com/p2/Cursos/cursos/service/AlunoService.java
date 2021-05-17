@@ -5,13 +5,18 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.p2.Cursos.cursos.model.entities.Aluno;
+import com.p2.Cursos.cursos.model.entities.Curso;
 import com.p2.Cursos.cursos.model.repository.AlunoRepository;
+import com.p2.Cursos.cursos.model.repository.CursoRepository;
 
 @Service
 public class AlunoService implements ServiceInterface<Aluno>{
 
 	@Autowired
 	private AlunoRepository repository;
+	
+	@Autowired
+	private CursoRepository repoCurso;
 	
 	@Override
 	public Aluno create(Aluno obj) {
@@ -46,6 +51,22 @@ public class AlunoService implements ServiceInterface<Aluno>{
 			return true;
 		}
 			return false;
+	}
+	
+	public Aluno cadastroAlunoCurso( Long idAluno , Long idCurso) {
+		
+		Optional<Aluno> alunoExistente = repository.findById(idAluno);
+		Optional<Curso> cursoExistente = repoCurso.findById(idCurso);
+		
+		if(alunoExistente.isPresent() && cursoExistente.isPresent()) {
+			alunoExistente.get().getCursos().add(cursoExistente.get());
+			
+			repository.save(alunoExistente.get());
+			
+			return repository.save(alunoExistente.get());
+		}
+		
+		return null;
 	}
 
 }

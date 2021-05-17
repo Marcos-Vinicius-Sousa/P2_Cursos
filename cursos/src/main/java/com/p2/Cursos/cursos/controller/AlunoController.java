@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.p2.Cursos.cursos.model.entities.Aluno;
 import com.p2.Cursos.cursos.service.AlunoService;
 
@@ -45,6 +44,13 @@ public class AlunoController implements ControllerInterfaces<Aluno>{
 		service.create(obj);
 		return ResponseEntity.ok(obj);
 	}
+	
+	/*@PostMapping("/AlunoCurso/cursos/{idAluno}/alunos/{idCurso}")
+	public ResponseEntity<Aluno> postAlunoCurso(@PathVariable long idAluno, @PathVariable long idCurso){
+		service.cadastroAlunoCurso(idAluno, idCurso);
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		//return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastroAlunoCurso(idAluno, idCurso));
+	} */
 
 	@Override
 	@PutMapping

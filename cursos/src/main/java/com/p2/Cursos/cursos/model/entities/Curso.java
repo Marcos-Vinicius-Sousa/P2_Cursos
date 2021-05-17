@@ -1,40 +1,35 @@
 package com.p2.Cursos.cursos.model.entities;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
 
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Curso {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id_Curso")
 	private Long id;
 	
 	
-	@Column(name="nm_curso")
 	private String nome;
-	
-	
-	@Column(name="nm_area")
 	private String area;
-	
-	
-	@Column(name="qtd_aulas")
 	private String aulas;
 	
-	public Curso() {
-		
-	}
 
-	public Curso( String nome,  String area,  String aulas) {
+
+	public Curso() {
 		super();
-		this.nome = nome;
-		this.area = area;
-		this.aulas = aulas;
+		
 	}
 
 	public Long getId() {

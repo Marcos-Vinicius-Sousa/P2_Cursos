@@ -1,18 +1,27 @@
 package com.p2.Cursos.cursos.model.entities;
 
+
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Aluno {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id_Aluno")
 	private Long id;
 	
 	@NotBlank
@@ -31,6 +40,20 @@ public class Aluno {
 	
 	@NotBlank
 	private String telefone;
+	
+	@ManyToMany
+	private List<Curso> cursos;
+
+	
+	@JsonIgnore
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+
+	@JsonProperty
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
+	}
 
 	public Long getId() {
 		return id;
