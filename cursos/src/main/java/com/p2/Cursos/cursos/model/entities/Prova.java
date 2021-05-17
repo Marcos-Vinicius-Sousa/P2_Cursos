@@ -1,7 +1,5 @@
 package com.p2.Cursos.cursos.model.entities;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,10 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -52,8 +48,8 @@ public class Prova {
 		this.nome = nome;
 	}
 
-	public String getCurso() {
-		return curso.getNome();
+	public Curso getCurso() {
+		return curso;
 	}
 
 	public void setCurso(Curso curso) {
