@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import org.hibernate.validator.constraints.br.CPF;
+
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -37,7 +37,7 @@ public class Professor {
 	private String telefone;
 	
 	@ManyToOne
-	@JoinColumn(name="usuario_id")
+	@JoinColumn(name="id_curso")
 	private Curso curso;
 
 	public Long getId() {
