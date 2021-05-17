@@ -17,7 +17,7 @@ import com.p2.Cursos.cursos.model.entities.Nota;
 import com.p2.Cursos.cursos.service.NotaService;
 
 @RestController
-@RequestMapping("/professor")
+@RequestMapping("/nota")
 public class NotaController implements ControllerInterfaces<Nota>{
 	
 	@Autowired

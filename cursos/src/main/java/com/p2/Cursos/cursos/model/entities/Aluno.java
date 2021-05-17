@@ -103,17 +103,10 @@ public class Aluno {
 		this.telefone = telefone;
 	}
 
-	public Aluno(@NotBlank String nome, @NotBlank @Email String email, @NotBlank String genero, @NotBlank String cidade,
-			@NotBlank String telefone) {
-		super();
-		this.nome = nome;
-		this.email = email;
-		this.genero = genero;
-		this.cidade = cidade;
-		this.telefone = telefone;
-	}
-	
 	public Aluno() {
+		super();
 		
 	}
+
+	
 }

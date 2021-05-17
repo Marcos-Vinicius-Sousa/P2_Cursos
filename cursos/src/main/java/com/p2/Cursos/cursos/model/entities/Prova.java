@@ -30,19 +30,7 @@ public class Prova {
 	@JoinColumn(name="id_curso")
 	private Curso curso;
 	
-	@ManyToMany
-	private List<Nota> notas;
 	
-	
-	@JsonIgnore
-	public List<Nota> getNotas() {
-		return notas;
-	}
-	
-	@JsonProperty
-	public void setNotas(List<Nota> notas) {
-		this.notas = notas;
-	}
 
 	public Prova() {
 		super();
@@ -64,8 +52,8 @@ public class Prova {
 		this.nome = nome;
 	}
 
-	public Curso getCurso() {
-		return curso;
+	public String getCurso() {
+		return curso.getNome();
 	}
 
 	public void setCurso(Curso curso) {
