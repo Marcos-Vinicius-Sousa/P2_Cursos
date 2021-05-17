@@ -44,13 +44,7 @@ public class AlunoController implements ControllerInterfaces<Aluno>{
 		service.create(obj);
 		return ResponseEntity.ok(obj);
 	}
-	
-	/*@PostMapping("/AlunoCurso/cursos/{idAluno}/alunos/{idCurso}")
-	public ResponseEntity<Aluno> postAlunoCurso(@PathVariable long idAluno, @PathVariable long idCurso){
-		service.cadastroAlunoCurso(idAluno, idCurso);
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		//return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastroAlunoCurso(idAluno, idCurso));
-	} */
+
 
 	@Override
 	@PutMapping
