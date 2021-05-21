@@ -1,7 +1,7 @@
 package com.p2.Cursos.cursos.model.entities;
 
 
-import java.util.ArrayList;
+
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,7 +43,7 @@ public class Aluno {
 	private String telefone;
 	
 	@ManyToMany
-	private List<Curso> cursos = new ArrayList();
+	private List<Curso> cursos;
 
 	
 	@JsonIgnore
