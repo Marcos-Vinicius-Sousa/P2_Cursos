@@ -1,10 +1,8 @@
 package com.p2.Cursos.cursos.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.p2.Cursos.cursos.model.entities.Professor;
 import com.p2.Cursos.cursos.model.repository.ProfessorRepository;
 import java.util.Optional;
@@ -15,8 +13,11 @@ public class ProfessorService implements ServiceInterface<Professor>{
 	@Autowired
 	private ProfessorRepository repository;
 	
+
+	
 	@Override
 	public Professor create(Professor obj) {
+		
 		repository.save(obj);
 		return obj;
 	}

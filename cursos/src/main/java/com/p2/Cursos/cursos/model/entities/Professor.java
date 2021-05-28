@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CPF;
 
 
 @Entity
@@ -26,6 +27,8 @@ public class Professor {
 	@Column(name="nm_professor")
 	private String nome;
 	
+	
+	@CPF
 	@NotBlank
 	private String cpf;
 	
