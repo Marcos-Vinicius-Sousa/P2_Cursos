@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan("com.p2.Cursos.security")
+@ComponentScan("com.p2.Cursos.*")
 public class CursosApplication {
 
 	public static void main(String[] args) {

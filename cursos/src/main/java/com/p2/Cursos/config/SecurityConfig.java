@@ -22,7 +22,7 @@ import com.p2.Cursos.security.JWTUtil;
 
 @EnableWebSecurity
 @Configuration	
-@ComponentScan("my config package address")
+@ComponentScan("com.p2.Cursos.config")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
@@ -53,7 +53,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
-	} 
+	}  
+	
+	/* protected void configure (AuthenticationManagerBuilder auth) throws Exception {
+	        auth.inMemoryAuthentication()
+	        .withUser("david").password("999").roles("ADMIN");
+	    } */
 	
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {

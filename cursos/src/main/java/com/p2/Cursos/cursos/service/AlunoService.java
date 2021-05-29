@@ -16,8 +16,8 @@ public class AlunoService  implements ServiceInterface<Aluno>{
 	@Autowired
 	private AlunoRepository repository;
 	
-	/*@Autowired
-	private BCryptPasswordEncoder passwordEncoder; */
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder; 
 	
 	
 	
@@ -26,7 +26,7 @@ public class AlunoService  implements ServiceInterface<Aluno>{
 	
 	@Override
 	public Aluno create(Aluno obj) {
-		//obj.setSenha(passwordEncoder.encode(obj.getSenha()));
+		obj.setSenha(passwordEncoder.encode(obj.getSenha()));
 		repository.save(obj);
 		return obj;
 	}
