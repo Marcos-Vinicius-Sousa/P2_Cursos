@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,12 +18,15 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.p2.Cursos.cursos.model.repository.AlunoRepository;
 import com.p2.Cursos.security.JWTAuthenticationFilter;
 import com.p2.Cursos.security.JWTUtil;
 
+import com.p2.Cursos.security.JWTAuthorizationFilter;
+
 @EnableWebSecurity
 @Configuration	
-@ComponentScan("com.p2.Cursos.config")
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
@@ -31,12 +35,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
+	@Autowired
+	private AlunoRepository alrepo;
+	
 	
 	private static final String[] PUBLIC_MATCHERS = {
 			
 			"/curso/**",
 			"/professor/**",
-			"/aluno/**"
+			"/aluno/**",
+			"/login"
 	};
 	
 	@Override
@@ -44,21 +52,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.authorizeRequests().antMatchers(HttpMethod.GET, PUBLIC_MATCHERS)
-		.permitAll().antMatchers(HttpMethod.POST, PUBLIC_MATCHERS)
-		.permitAll().antMatchers(HttpMethod.PUT, PUBLIC_MATCHERS)
-		.permitAll().antMatchers(HttpMethod.DELETE, PUBLIC_MATCHERS)
 		.permitAll().anyRequest().authenticated();
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
-	} 
+		
+		} 
 	
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+		auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
 	}  
 	
-	/* protected void configure (AuthenticationManagerBuilder auth) throws Exception {
-	        auth.inMemoryAuthentication()
-	        .withUser("david").password("999").roles("ADMIN");
-	    } */
+	
 	
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {

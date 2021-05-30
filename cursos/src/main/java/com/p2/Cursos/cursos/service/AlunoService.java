@@ -3,12 +3,16 @@ package com.p2.Cursos.cursos.service;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.p2.Cursos.cursos.model.entities.Aluno;
 import com.p2.Cursos.cursos.model.entities.Curso;
 import com.p2.Cursos.cursos.model.repository.AlunoRepository;
 import com.p2.Cursos.cursos.model.repository.CursoRepository;
+
+import com.p2.Cursos.security.UserDetailsImpl;
 
 @Service
 public class AlunoService  implements ServiceInterface<Aluno>{
@@ -23,6 +27,14 @@ public class AlunoService  implements ServiceInterface<Aluno>{
 	
 	@Autowired
 	private CursoRepository repoCurso;
+	
+	public static UserDetailsImpl authenticated() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null) {
+			return (UserDetailsImpl) auth.getPrincipal();
+		}
+		return null;
+	}
 	
 	@Override
 	public Aluno create(Aluno obj) {
