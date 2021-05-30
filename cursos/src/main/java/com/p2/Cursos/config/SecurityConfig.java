@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/curso/**",
 			"/professor/**",
 			"/aluno/**",
-			"/login"
+			
 	};
 	
 	@Override
@@ -54,12 +54,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers(HttpMethod.GET, PUBLIC_MATCHERS)
 		.permitAll().anyRequest().authenticated();
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
-		
 		} 
 	
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-		auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-	}  
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {	
+		auth.userDetailsService(userDetailsService)
+		    .passwordEncoder(bCryptPasswordEncoder());
+	} 
 	
 	
 	
