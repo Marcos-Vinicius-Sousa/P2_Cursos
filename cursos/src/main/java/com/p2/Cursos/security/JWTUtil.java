@@ -3,9 +3,8 @@ package com.p2.Cursos.security;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
 import com.p2.Cursos.cursos.model.entities.TipoPerfil;
-import com.p2.Cursos.cursos.service.AlunoService;
+import com.p2.Cursos.cursos.service.UsuarioService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -58,7 +57,7 @@ public class JWTUtil {
 	}
 	
 	public boolean authorized(Long id) {
-		UserDetailsImpl user = AlunoService.authenticated();
+		UserDetailsImpl user = UsuarioService.authenticated();
 		if (user == null || (!user.hasRole(TipoPerfil.ADMIN) && !id.equals(user.getId()))) {
 			return false;
 		}

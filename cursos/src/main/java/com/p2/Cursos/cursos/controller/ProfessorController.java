@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.p2.Cursos.cursos.model.entities.Professor;
 import com.p2.Cursos.cursos.service.ProfessorService;
+import com.p2.Cursos.exception.AuthorizationException;
 
 @RestController
 @RequestMapping("/professor")
@@ -33,11 +34,15 @@ public class ProfessorController implements ControllerInterfaces<Professor>{
 	@Override
 	@GetMapping(value="/{id}")
 	public ResponseEntity<?> get(@PathVariable("id") Long id) {
+		try {
 		Professor _professor = service.findById(id);
 		if(_professor != null) {
 			return ResponseEntity.ok(_professor);
-		}
+			}
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}catch (AuthorizationException e) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
 	}
 
 	@Override

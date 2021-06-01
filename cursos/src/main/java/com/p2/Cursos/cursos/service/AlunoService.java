@@ -3,16 +3,15 @@ package com.p2.Cursos.cursos.service;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.p2.Cursos.cursos.model.entities.Aluno;
 import com.p2.Cursos.cursos.model.entities.Curso;
 import com.p2.Cursos.cursos.model.repository.AlunoRepository;
 import com.p2.Cursos.cursos.model.repository.CursoRepository;
+import com.p2.Cursos.security.JWTUtil;
+import com.p2.Cursos.exception.AuthorizationException;
 
-import com.p2.Cursos.security.UserDetailsImpl;
 
 @Service
 public class AlunoService  implements ServiceInterface<Aluno>{
@@ -23,18 +22,15 @@ public class AlunoService  implements ServiceInterface<Aluno>{
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder; 
 	
+	@Autowired
+	private JWTUtil jwtUtil;
+	
 	
 	
 	@Autowired
 	private CursoRepository repoCurso;
 	
-	public static UserDetailsImpl authenticated() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth != null) {
-			return (UserDetailsImpl) auth.getPrincipal();
-		}
-		return null;
-	}
+	
 	
 	@Override
 	public Aluno create(Aluno obj) {
@@ -44,7 +40,10 @@ public class AlunoService  implements ServiceInterface<Aluno>{
 	}
 
 	@Override
-	public Aluno findById(Long id) {
+	public Aluno findById(Long id) throws AuthorizationException{
+		if (!jwtUtil.authorized(id)) {
+			throw new AuthorizationException("Acesso negado!");
+		}
 		Optional<Aluno> _aluno = repository.findById(id);
 		return _aluno.orElse(null);
 	}
