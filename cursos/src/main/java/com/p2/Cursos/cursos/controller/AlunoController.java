@@ -17,6 +17,10 @@ import com.p2.Cursos.cursos.model.entities.Aluno;
 import com.p2.Cursos.cursos.service.AlunoService;
 import com.p2.Cursos.exception.AuthorizationException;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 @RestController
 @RequestMapping("/aluno")
 public class AlunoController implements ControllerInterfaces<Aluno>{
@@ -24,14 +28,23 @@ public class AlunoController implements ControllerInterfaces<Aluno>{
 	@Autowired
 	private AlunoService service;
 	
-	@Override
-	@GetMapping
+	@Override@ApiResponses(value = {
+			@ApiResponse(responseCode = "200",
+			description = "Retorna a lista de alunos"),
+			@ApiResponse(responseCode = "403",
+			description = "Você não tem permissão para acessar este recurso"),
+			@ApiResponse(responseCode = "500",
+			description = "Foi gerada uma exceção"),
+			})
+	@Operation(summary = "Devolve a lista de todos os alunos")
+	@GetMapping(produces ="application/json")
 	public ResponseEntity<List<Aluno>> getAll() {
 		return ResponseEntity.ok(service.findAll());
 	}
 
 	@Override
-	@GetMapping(value="/{id}")
+	@Operation(summary = "Devolve o aluno dado seu id")
+	@GetMapping(value="/{id}", produces ="application/json")
 	public ResponseEntity<?> get(@PathVariable("id") Long id) {
 		try {
 		Aluno _aluno = service.findById(id);
@@ -45,7 +58,8 @@ public class AlunoController implements ControllerInterfaces<Aluno>{
 	}
 
 	@Override
-	@PostMapping
+	@PostMapping(produces ="application/json")
+	@Operation(summary = "Grava um novo aluno")
 	public ResponseEntity<Aluno> post(@RequestBody Aluno obj) {
 		service.create(obj);
 		return ResponseEntity.ok(obj);
@@ -53,7 +67,8 @@ public class AlunoController implements ControllerInterfaces<Aluno>{
 
 
 	@Override
-	@PutMapping
+	@PutMapping(produces ="application/json")
+	@Operation(summary = "Atualiza os dados de um aluno")
 	public ResponseEntity<?> put(@RequestBody Aluno obj) {
 		if(service.update(obj)) {
 			return ResponseEntity.ok(obj);
@@ -64,6 +79,7 @@ public class AlunoController implements ControllerInterfaces<Aluno>{
 	@Override
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping(value="/{id}")
+	@Operation(summary = "Exclui um aluno")
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 		if(service.delete(id)) {
 			return ResponseEntity.ok().build();

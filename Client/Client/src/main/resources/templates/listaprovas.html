@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Sistema T2S • Listagem</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
+	crossorigin="anonymous">
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-md navbar-light bg-light"><img src="https://i.imgur.com/QolVQuN.png" style="width: 3%; margin: 5px" >
+		<a class="navbar-brand" href="/">Sistema <i>T2S</i></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarsExample04" aria-controls="navbarsExample04"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarsExample04">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link" href="/">Inicio</a>
+				</li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="dropdown04"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cadastrar</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown04">
+						<a class="dropdown-item" href="/container">Container</a> <a
+							class="dropdown-item" href="/movimentacao">Movimentação</a>
+					</div></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="dropdown04"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Listar</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown04">
+						<a class="dropdown-item" href="/listacontainer">Containers</a> <a
+							class="dropdown-item" href="/listamovimentacao">Movimentações</a>
+					</div></li>
+				<li class="nav-item"><a class="nav-link" href="/sobre">Sobre</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+
+	<br>
+	<br>
+	<table class="table"
+		style="width: 80%; text-align: center; margin: auto">
+		<thead>
+			<tr>
+				<td scope="col"><b>ID</b></td>
+				<td scope="col"><b>Nome do Cliente</b></td>
+				<td scope="col"><b>Número do Container</b></td>
+				<td scope="col"><b>Tipo do Container</b></td>
+				<td scope="col"><b>Status</b></td>
+				<td scope="col"><b>Categoria</b></td>
+				<td scope="col"></td>
+				<td scope="col"></td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="container : ${containers}">
+				<td th:text="${container.id}"></td>
+				<td th:text="${container.nomeCliente}"></td>
+				<td th:text="${container.numContainer}"></td>
+				<td th:text="${container.tipo}"></td>
+				<td th:text="${container.status}"></td>
+				<td th:text="${container.categoria}"></td>
+				<td><a th:href="@{/edit/{id}(id=${container.id})}"
+					class="btn btn-outline-dark">Editar</a></td>
+				<td>
+					<form action="#"
+						th:action="@{'/container/delete/{id}'(id=${container.id})}"
+						th:method="delete">
+						<button type="submit" class="btn btn-outline-dark">
+							Apagar</button>
+					</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+	crossorigin="anonymous"></script>
+</html>

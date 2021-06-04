@@ -17,6 +17,10 @@ import com.p2.Cursos.cursos.model.entities.Professor;
 import com.p2.Cursos.cursos.service.ProfessorService;
 import com.p2.Cursos.exception.AuthorizationException;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 @RestController
 @RequestMapping("/professor")
 public class ProfessorController implements ControllerInterfaces<Professor>{
@@ -26,13 +30,31 @@ public class ProfessorController implements ControllerInterfaces<Professor>{
 	
 	
 	@Override
-	@GetMapping
+	@GetMapping(produces ="application/json")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200",
+			description = "Retorna uma lista de professores"),
+			@ApiResponse(responseCode = "403",
+			description = "Você não tem permissão para acessar este recurso"),
+			@ApiResponse(responseCode = "500",
+			description = "Foi gerada uma exceção"),
+			})
+	@Operation(summary = "Devolve uma lista de professores")
 	public ResponseEntity<List<Professor>> getAll() {
 		return ResponseEntity.ok(service.findAll());
 	}
 
 	@Override
-	@GetMapping(value="/{id}")
+	@GetMapping(value="/{id}",produces ="application/json")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200",
+			description = "Retorna um professor de acordo com seu id"),
+			@ApiResponse(responseCode = "403",
+			description = "Você não tem permissão para acessar este recurso"),
+			@ApiResponse(responseCode = "404",
+			description = "Não existe nenhum professor com esse id"),
+			})
+	@Operation(summary = "Devolve um professor dado o seu id")
 	public ResponseEntity<?> get(@PathVariable("id") Long id) {
 		try {
 		Professor _professor = service.findById(id);
@@ -46,14 +68,16 @@ public class ProfessorController implements ControllerInterfaces<Professor>{
 	}
 
 	@Override
-	@PostMapping
+	@PostMapping(produces ="application/json")
+	@Operation(summary = "Grava um novo professor")
 	public ResponseEntity<Professor> post(@RequestBody Professor obj) {
 		service.create(obj);
 		return ResponseEntity.ok(obj);
 	}
 
 	@Override
-	@PutMapping
+	@PutMapping(produces ="application/json")
+	@Operation(summary = "Atualiza um professor")
 	public ResponseEntity<?> put( @RequestBody Professor obj) {
 		if(service.update(obj)) {
 			return ResponseEntity.ok(obj);
@@ -63,6 +87,7 @@ public class ProfessorController implements ControllerInterfaces<Professor>{
 
 	@Override
 	@DeleteMapping(value="/{id}")
+	@Operation(summary = "Exclui um professor")
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 		if(service.delete(id)) {
 			return ResponseEntity.ok().build();

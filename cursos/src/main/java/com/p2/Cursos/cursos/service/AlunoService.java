@@ -3,7 +3,6 @@ package com.p2.Cursos.cursos.service;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.p2.Cursos.cursos.model.entities.Aluno;
 import com.p2.Cursos.cursos.model.entities.Curso;
@@ -20,9 +19,6 @@ public class AlunoService  implements ServiceInterface<Aluno>{
 	private AlunoRepository repository;
 	
 	@Autowired
-	private BCryptPasswordEncoder passwordEncoder; 
-	
-	@Autowired
 	private JWTUtil jwtUtil;
 	
 	
@@ -34,7 +30,6 @@ public class AlunoService  implements ServiceInterface<Aluno>{
 	
 	@Override
 	public Aluno create(Aluno obj) {
-		obj.setSenha(passwordEncoder.encode(obj.getSenha()));
 		repository.save(obj);
 		return obj;
 	}

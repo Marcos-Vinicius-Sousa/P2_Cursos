@@ -35,15 +35,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
-	@Autowired
-	private AlunoRepository alrepo;
-	
-	
 	private static final String[] PUBLIC_MATCHERS = {
 			
 			"/curso/**",
 			"/professor/**",
 			"/aluno/**",
+			"/usuario/**"
 			
 	};
 	
@@ -53,7 +50,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.authorizeRequests()
 		.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS).permitAll()
-		.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS).permitAll().anyRequest().authenticated();
+		.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS).permitAll()
+		.antMatchers("/v3/api-docs/**", "/swagger-ui/**",
+				"/swagger-ui.html").permitAll()
+		.anyRequest().authenticated();
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
 		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil,
 				userDetailsService));

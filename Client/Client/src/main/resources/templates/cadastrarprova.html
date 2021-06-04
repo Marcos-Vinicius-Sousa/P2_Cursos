@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Sistema T2S • Cadastrar</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
+	crossorigin="anonymous">
+<link rel="canonical"
+	href="https://getbootstrap.com/docs/4.5/examples/checkout/">
+
+<!-- Bootstrap core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.order-md-1 {
+	margin: 0 auto;
+}
+
+@media ( min-width : 768px) {
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
+}
+</style>
+<!-- Custom styles for this template -->
+<link href="css/form-validation.css" rel="stylesheet">
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-md navbar-light bg-light"><img src="https://i.imgur.com/QolVQuN.png" style="width: 3%; margin: 5px" >
+		<a class="navbar-brand" href="/">Sistema <i>T2S</i></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarsExample04" aria-controls="navbarsExample04"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarsExample04">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link" href="/">Inicio</a>
+				</li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="dropdown04"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cadastrar</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown04">
+							<a class="dropdown-item" href="/prova">Prova</a>
+							<a class="dropdown-item" href="/nota">Nota</a>
+							
+					</div></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="dropdown04"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Listar</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown04">
+						<a class="dropdown-item" href="/listacurso">Cursos</a> 
+						<a class="dropdown-item" href="/listaaluno">Alunos</a>
+						<a class="dropdown-item" href="/listaprova">Provas</a>
+						<a class="dropdown-item" href="/listanota">Notas</a>
+					</div></li>
+				<li class="nav-item"><a class="nav-link" href="/sobre">Sobre</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 order-md-1">
+				<h4 class="mb-3">Cadastro Movimentação</h4>
+				<form class="needs-validation" action="#" method="post"
+					th:action="@{/movimentacao}" th:object="${movimentacao}">
+
+					<div class="mb-3">
+						<p>Tipo de movimentação:</p>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="Embarque"
+								id="flexRadioDefault1" value="Embarque"
+								th:field="*{tpMovimentacao}"> <label
+								class="form-check-label" for="flexRadioDefault1">
+								Embarque </label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="Descarga"
+								id="flexRadioDefault2" value="Descarga"
+								th:field="*{tpMovimentacao}"> <label
+								class="form-check-label" for="flexRadioDefault2">
+								Descarga </label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="Gate In"
+								id="flexRadioDefault3" value="Gate In"
+								th:field="*{tpMovimentacao}"> <label
+								class="form-check-label" for="flexRadioDefault2"> Gate
+								In </label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="Gate Out"
+								id="flexRadioDefault4" value="Gate Out"
+								th:field="*{tpMovimentacao}"> <label
+								class="form-check-label" for="flexRadioDefault2"> Gate
+								Out </label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio"
+								name="Posicionamento Pilha" id="flexRadioDefault5"
+								value="Posicionamento Pilha" th:field="*{tpMovimentacao}">
+							<label class="form-check-label" for="flexRadioDefault2">
+								Posicionamento Pilha </label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="Pesagem"
+								id="flexRadioDefault6" value="Pesagem"
+								th:field="*{tpMovimentacao}"> <label
+								class="form-check-label" for="flexRadioDefault2">
+								Pesagem </label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="Scanner"
+								id="flexRadioDefault2" value="Scanner"
+								th:field="*{tpMovimentacao}"> <label
+								class="form-check-label" for="flexRadioDefault2">
+								Scanner </label>
+						</div>
+					</div>
+
+					<div class="mb-3">
+						<label>Data/Hora inicio:</label>
+						<div class="input-group">
+							<input class="form-control" type="datetime-local"
+								th:field="*{dataInicio}" required>
+						</div>
+					</div>
+
+					<div class="mb-3">
+						<label>Data/Hora fim:</label>
+						<div class="input-group">
+							<input class="form-control" type="datetime-local"
+								th:field="*{dataFim}" required>
+						</div>
+					</div>
+					
+					<div class="mb-3">
+						<label>Container:</label>
+							<div class="input-group">
+								<input class="form-control" type="number"
+								th:field="*{container.id}" required>
+							</div>
+					</div>
+					
+					
+
+
+					<button class="btn btn-outline-dark" type="submit"
+						value="getMovimentacaoForm">Cadastrar</button>
+				</form>
+
+			</div>
+		</div>
+	</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+	crossorigin="anonymous"></script>
+</html>
