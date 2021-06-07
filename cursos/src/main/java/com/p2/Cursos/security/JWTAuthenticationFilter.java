@@ -17,6 +17,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.p2.Cursos.cursos.model.entities.Usuario;
+import com.p2.Cursos.cursos.model.repository.UsuarioRepository;
 import com.p2.Cursos.dto.CredenciaisDTO;
 
 
@@ -25,6 +27,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	
 	private AuthenticationManager authenticationManager;
 	private JWTUtil jwtUtil;
+	private UsuarioRepository _usures;
 	
 	
 	public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
@@ -53,6 +56,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		String token = jwtUtil.generateToken(username);
 		response.addHeader("Authentication", "Bearer " + token);
 		response.addHeader("access-control-expose-headers", "Authorization");
+		Usuario user = (Usuario) _usures.findByLogin(username);
+		String json = "{\"Auth\":\"Bearer" + token.toString() + "\","
+						+ "\"userId\":\""+ user.getId() + "\","
+						+"\"userPerfil\":\""+ user.getPerfis()+"\","
+						+"\"userLogin\":\""+ user.getLogin() + "\","
+						+ "}";
+		response.getWriter().append(json);
 		
 	}
 	

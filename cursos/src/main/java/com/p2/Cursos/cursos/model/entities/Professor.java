@@ -13,6 +13,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CPF;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -83,10 +86,12 @@ public class Professor {
 		this.telefone = telefone;
 	}
 
-	public Long getCurso() {
-		return curso.getId();
+	
+	public Curso getCurso() {
+		return curso;	
 	}
 
+	
 	public void setCurso(Curso curso) {
 		this.curso = curso;
 	}
@@ -95,15 +100,7 @@ public class Professor {
 		
 	}
 	
-	public Professor(@NotBlank String nome, @NotBlank String cpf, @NotBlank @Email String email,
-			@NotBlank String telefone, Curso curso) {
-		super();
-		this.nome = nome;
-		this.cpf = cpf;
-		this.email = email;
-		this.telefone = telefone;
-		this.curso = curso;
-	}
+	
 	
 	
 }

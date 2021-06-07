@@ -47,12 +47,12 @@ public class Aluno {
 	private List<Curso> cursos;
 
 	
-	@JsonIgnore
+	
 	public List<Curso> getCursos() {
 		return cursos;
 	}
 
-	@JsonProperty
+	
 	public void setCursos(List<Curso> cursos) {
 		this.cursos = cursos;
 	}
