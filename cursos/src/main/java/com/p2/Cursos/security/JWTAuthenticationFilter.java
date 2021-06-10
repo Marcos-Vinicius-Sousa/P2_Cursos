@@ -56,12 +56,22 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		response.addHeader("Authentication", "Bearer " + token);
 		response.addHeader("access-control-expose-headers", "Authorization");
 		Usuario user = (Usuario) _usures.findByLogin(username);
-		String json = "{\"Auth\":\"Bearer" + token.toString() + "\","
+		user.setSenha(null);
+		Gson gson = new Gson();
+		String cliStr = gson.toJson(user);
+		PrintWriter out = response.getWriter();
+        	response.setContentType("application/json");
+        	response.setCharacterEncoding("UTF-8");
+        	out.print(cliStr);
+       		out.flush(); 
+
+
+		/*String json = "{\"Auth\":\"Bearer" + token.toString() + "\","
 						+ "\"userId\":\""+ user.getId() + "\","
 						+"\"userPerfil\":\""+ user.getPerfis()+"\","
 						+"\"userLogin\":\""+ user.getLogin() + "\","
 						+ "}";
-		response.getWriter().append(json);
+		response.getWriter().append(json); */
 		
 	}
 	
