@@ -1,6 +1,7 @@
 package com.p2.Cursos.security;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -13,9 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.p2.Cursos.cursos.model.entities.Usuario;
 import com.p2.Cursos.cursos.model.repository.UsuarioRepository;
@@ -50,7 +49,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	}
 	
 	@Override
-	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
+	protected void successfulAuthentication( HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
 		String username = ((UserDetailsImpl) authResult.getPrincipal()).getUsername();
 		String token = jwtUtil.generateToken(username);
@@ -87,4 +86,5 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 	
 
+	
 }

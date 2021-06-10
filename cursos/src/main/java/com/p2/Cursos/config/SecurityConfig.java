@@ -2,7 +2,7 @@ package com.p2.Cursos.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,12 +13,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.p2.Cursos.cursos.model.repository.AlunoRepository;
+
 import com.p2.Cursos.security.JWTAuthenticationFilter;
 import com.p2.Cursos.security.JWTUtil;
 
@@ -72,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		
 		CorsConfiguration config = new CorsConfiguration();
-		config.addAllowedOrigin("http://localhost:4200/");
+		config.addAllowedOrigin("http://localhost:8080/");
 		config.addAllowedMethod("GET");
 		config.addAllowedMethod("PUT");
 		config.addAllowedMethod("POST");
