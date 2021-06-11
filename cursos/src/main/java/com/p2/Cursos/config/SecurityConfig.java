@@ -72,8 +72,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
-		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		/*final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+		return source;*/
 		
+		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
 		config.addAllowedOrigin("https://curso-java-hsvg9u.stackblitz.io");
 		config.addAllowedMethod("GET");
@@ -84,8 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		config.addAllowedHeader("Authorization");
 		config.addAllowedHeader("Content-Type");
 		source.registerCorsConfiguration("/**", config);
-		
-		return source;
+		return source; 
 	}
 	
 	@Bean

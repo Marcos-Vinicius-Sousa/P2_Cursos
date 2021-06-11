@@ -73,10 +73,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
        		out.flush(); */
 
 
-		String json = "{\"Auth\":\"Bearer" + token.toString() + "\","
+		String json = "{\"Auth\":\"Bearer " + token.toString() + "\","
 						+ "\"userId\":\""+ user.getId() + "\","
 						+"\"userPerfil\":\""+ user.getPerfis()+"\","
-						+"\"userLogin\":\""+ user.getLogin() + "\","
+						+"\"userLogin\":\""+ user.getLogin() + "\""
 						+ "}";
 		response.getWriter().append(json); 
 		
