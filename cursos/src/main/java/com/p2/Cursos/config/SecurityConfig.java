@@ -18,7 +18,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-
+import com.p2.Cursos.cursos.model.repository.UsuarioRepository;
 import com.p2.Cursos.security.JWTAuthenticationFilter;
 import com.p2.Cursos.security.JWTUtil;
 
@@ -31,6 +31,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private JWTUtil jwtUtil;
+	
+	@Autowired
+	private UsuarioRepository user;
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
@@ -54,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/v3/api-docs/**", "/swagger-ui/**",
 				"/swagger-ui.html").permitAll()
 		.anyRequest().authenticated();
-		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil , user	));
 		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil,
 				userDetailsService));
 		} 
@@ -72,7 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		
 		CorsConfiguration config = new CorsConfiguration();
-		config.addAllowedOrigin("http://localhost:8080/");
+		config.addAllowedOrigin("https://curso-java-hsvg9u.stackblitz.io");
 		config.addAllowedMethod("GET");
 		config.addAllowedMethod("PUT");
 		config.addAllowedMethod("POST");

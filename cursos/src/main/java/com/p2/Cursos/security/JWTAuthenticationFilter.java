@@ -11,11 +11,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.p2.Cursos.cursos.model.entities.Usuario;
 import com.p2.Cursos.cursos.model.repository.UsuarioRepository;
 import com.p2.Cursos.dto.CredenciaisDTO;
@@ -26,12 +28,15 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	
 	private AuthenticationManager authenticationManager;
 	private JWTUtil jwtUtil;
-	private UsuarioRepository _usures;
+	
+	@Autowired
+	private UsuarioRepository _users;
 	
 	
-	public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
+	public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil , UsuarioRepository _users) {
 		this.authenticationManager = authenticationManager;
 		this.jwtUtil = jwtUtil;	
+		this._users = _users;
 	}
 	
 	
@@ -55,23 +60,25 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		String token = jwtUtil.generateToken(username);
 		response.addHeader("Authentication", "Bearer " + token);
 		response.addHeader("access-control-expose-headers", "Authorization");
-		Usuario user = (Usuario) _usures.findByLogin(username);
+		Usuario user = (Usuario) _users.findByLogin(username);
 		user.setSenha(null);
-		Gson gson = new Gson();
+		/*Gson gson = new Gson();
 		String cliStr = gson.toJson(user);
 		PrintWriter out = response.getWriter();
+			
         	response.setContentType("application/json");
         	response.setCharacterEncoding("UTF-8");
         	out.print(cliStr);
-       		out.flush(); 
+        	out.print("Bearer " + token);
+       		out.flush(); */
 
 
-		/*String json = "{\"Auth\":\"Bearer" + token.toString() + "\","
+		String json = "{\"Auth\":\"Bearer" + token.toString() + "\","
 						+ "\"userId\":\""+ user.getId() + "\","
 						+"\"userPerfil\":\""+ user.getPerfis()+"\","
 						+"\"userLogin\":\""+ user.getLogin() + "\","
 						+ "}";
-		response.getWriter().append(json); */
+		response.getWriter().append(json); 
 		
 	}
 	
