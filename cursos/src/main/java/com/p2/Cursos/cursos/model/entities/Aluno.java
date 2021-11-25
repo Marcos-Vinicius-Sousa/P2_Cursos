@@ -13,8 +13,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
