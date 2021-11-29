@@ -14,7 +14,7 @@ public class SwaggerConfig {
 	@Bean
 	public OpenAPI CursosOpenAPI() {
 		return new OpenAPI().info(new Info()
-				.title("API do Projeto Cursos da FATEC")
+				.title("API do Projeto Farmacia da FATEC")
 				.description("Esta API é utilizada na disciplina Desenvolvimento para Servidores-II").version("v0.0.1")
 				.contact(new Contact().name("Marcos Vinicius Sousa do Rosário").email("rosario.marcosv@gmail.com"))
 				.license(new License().name("Apache 2.0").url("http://springdoc.org")));

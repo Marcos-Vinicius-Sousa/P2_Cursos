@@ -47,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/estoque/**",
 			"/materiaprima/**",
 			"/pedido/**",
+			"/login/**"
 			
 			
 	};
@@ -82,7 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
-		config.addAllowedOrigin("https://manipulaqui.stackblitz.io/");
+		config.addAllowedOrigin("https://farmaciamanipulaqui.stackblitz.io/");
 		config.addAllowedMethod("GET");
 		config.addAllowedMethod("PUT");
 		config.addAllowedMethod("POST");
